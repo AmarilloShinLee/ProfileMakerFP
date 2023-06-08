@@ -1,24 +1,54 @@
-import logo from './logo.svg';
 import './App.css';
+
+import {Routes, Route} from 'react-router-dom'
+
+import LandingPage from './pages/LandingPage';
+import CredentialLayout from './pages/Credential/Credential';
+
+import { ThemeProvider, createTheme } from '@mui/material';
+import Login from './pages/Credential/Login';
+import Register from './pages/Credential/Register';
+
+const defaultTheme = createTheme({
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Arial',
+          fontWeight: 'bold',
+        }
+      }
+    }
+  },
+  palette: {
+    common: {
+      white: "#F4F4F4",
+      black: "#29252A"
+    },
+    primary: {
+      main: "#E83636",
+      contrastText: "#F4F4F4"
+    },
+    secondary: {
+      main: "#EED8B6",
+      contrastText: "#29252A"
+    }
+  }
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ThemeProvider theme={defaultTheme}>
+        <Routes>
+          <Route path='/' element={<LandingPage />} />
+          <Route path='/credential' element={<CredentialLayout />}>
+            <Route path='login' element={<Login />} />
+            <Route path='register' element={<Register />} />
+          </Route>
+        </Routes>
+      </ThemeProvider>
+    </>
   );
 }
 
